@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Topic {
+  id                        String   @id @default(cuid())
+  title                     String
+  description               String?
+  imageUrl                  String?
+  notes                     Note[]
+  links                     Link[]
+  attachments               Attachment[]
+  images                    Image[]
+  recently_deleted_notes    Recently_Deleted_Note[]
+  recently_deleted_images   Recently_Deleted_Image[]
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Link {
+  id          String   @id @default(cuid())
+  url         String
+  description String?
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Attachment {
+  id          String   @id @default(cuid())
+  fileUrl     String
+  description String?
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Image {
+  id          String   @id @default(cuid())
+  imageUrl    String
+  description String?
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Recently_Deleted_Note {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  deletedAt   DateTime @default(now())
+}
+
+model Recently_Deleted_Image {
+  id          String   @id @default(cuid())
+  imageUrl    String
+  description String?
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  deletedAt   DateTime @default(now())
+}
