@@ -11,7 +11,7 @@ interface NoteCardProps {
 
 const NoteCard = ({ note_id, title, note }: NoteCardProps) => {
   return (
-    <Link href={`/notes/${note_id}`} className="cursor-pointer">
+    <Link href={`/${note_id}`} className="cursor-pointer">
         <div className="rounded-2xl bg-fuchsia-900 text-white h-[250px] shadow-xl">
             <div className="flex justify-center mb-2">
             </div>

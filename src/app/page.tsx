@@ -51,7 +51,7 @@ export default function Home() {
 
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
         {topics.map((topic) => (
-          <Link key={topic.id} href={`/topics/${topic.id}`}>
+          <Link key={topic.id} href={`/${topic.id}`}>
             <TopicCard
               key={topic.id}
               title={topic.title}
