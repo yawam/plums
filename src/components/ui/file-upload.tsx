@@ -2,7 +2,7 @@
 
 import toast from "react-hot-toast";
 import { UploadDropzone } from "@/lib/uploadthing";
-import { ourFileRouter } from "@/app/[topicId]/api/uploadthing/core";
+import { ourFileRouter } from "@/api/uploadthing/core";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
