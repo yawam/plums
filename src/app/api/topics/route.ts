@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export async function POST(req: Request) {
   try {
@@ -40,3 +41,26 @@ export async function GET() {
     console.error("Error handling GET request:", error);
   }
 }
+
+// export async function GET_BY_ID(req: NextApiRequest, res: NextApiResponse) {
+//   if (req.method !== 'GET') {
+//     return res.status(405).json({ message: 'Method Not Allowed' });
+//   }
+
+//   const { id } = req.query; // Retrieving ID from route parameters
+
+//   try {
+//     const topic = await db.topic.findUnique({
+//       where: { id: String(id) }, // Ensure id is treated as string
+//     });
+
+//     if (!topic) {
+//       return res.status(404).json({ message: 'Topic not found' });
+//     }
+
+//     return res.status(200).json({ topic });
+//   } catch (error) {
+//     console.error('Error fetching topic:', error);
+//     return res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// }

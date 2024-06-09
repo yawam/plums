@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import NewTopicModal from "@/pages/NewTopicModal";
 import "remixicon/fonts/remixicon.css";
@@ -51,12 +51,15 @@ export default function Home() {
 
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
         {topics.map((topic) => (
-          <TopicCard
-            key={topic.id}
-            title={topic.title}
-            description={topic.description || ""}
-            imageUrl={topic.imageUrl || "/images/placeholder-image.jpg"}
-          />
+          <Link key={topic.id} href={`/${topic.id}`}>
+            <TopicCard
+              key={topic.id}
+              title={topic.title}
+              description={topic.description || ""}
+              imageUrl={topic.imageUrl || "/images/placeholder-image.jpg"}
+            />
+          </Link>
+          
         ))}
       </div>
     </main>

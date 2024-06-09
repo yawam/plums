@@ -1,10 +1,12 @@
 import React from 'react'
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const page = ({ params }: {
-    params: { noteId: string }
+  params: { noteId: string }
 }) => {
+  const router = useRouter();
 
   return (
     <main className="flex flex-col">
@@ -12,14 +14,13 @@ const page = ({ params }: {
         <h2 className="text-4xl tracking-widest align-middle font-semibold">
           Note {params.noteId}
         </h2>
-        <Link href={"/notes"}>
-          <Button
-            variant={"lArrowCircle"}
-            size={"lArrowCircle"}
-          >
-            <i className="ri-arrow-left-circle-fill text-fuchsia-900 text-[90px]"></i>
-          </Button>
-        </Link>
+        <Button
+          variant={"lArrowCircle"}
+          size={"lArrowCircle"}
+          onClick={router.back}
+        >
+          <i className="ri-arrow-left-circle-fill text-fuchsia-900 text-[90px]"></i>
+        </Button>
         
       </div>
 
