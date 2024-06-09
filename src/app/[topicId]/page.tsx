@@ -41,16 +41,16 @@ const TopicPage = async ({ params }: {
         {topic?.description}
 
         <div>
-          <Link href={`/${topic?.id}/notes`} key={topic?.id}>Notes</Link>
+          <Link href={`/${topic?.id}/notes`}>Notes</Link>
         </div>
         <div>
-          <Link href={`/attachments/${topic?.id}`}>Attachments</Link>
+          <Link href={`/${topic?.id}/attachments`}>Attachments</Link>
         </div>
         <div>
-          <Link href={`/images/${topic?.id}`}>Notes</Link>
+          <Link href={`/${topic?.id}/images`}>Images</Link>
         </div>
         <div>
-          <Link href={`/notes/${topic?.id}`}>Notes</Link>
+          <Link href={`/${topic?.id}/links`}>Links</Link>
         </div>
       </div>
     </main>
