@@ -49,7 +49,8 @@ export default function Home() {
       {/* Check if modal is open and render modal */}
       {isModalOpen && <NewTopicModal closeModal={toggleModal} />}
 
-      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4 lg:gap-10">
+        {!topics.length && <p>Create your first topic</p>}
         {topics.map((topic) => (
           <Link key={topic.id} href={`/${topic.id}`}>
             <TopicCard
@@ -59,7 +60,6 @@ export default function Home() {
               imageUrl={topic.imageUrl || "/images/placeholder-image.jpg"}
             />
           </Link>
-          
         ))}
       </div>
     </main>
