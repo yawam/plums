@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import NotesSection from "../_components/notesSection";
+import TopicSection from "../_components/notesSection";
 
 const TopicPage = async ({ params }: { params: { topicId: string } }) => {
   const topic = await db.topic.findUnique({
@@ -32,43 +32,23 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
 
       <div className="flex flex-col gap-2 mt-10 px-4 w-full md:max-w-[80%] md:gap-12 mx-auto">
         <div>
-          <div className="w-full flex">
-            <h2 className="justify-self-start text-[35px] tracking-wide text-neutral-400">
-              Notes
-            </h2>
-          </div>
           <Link href={`/${topic?.id}/notes`}>
-            <NotesSection />
+            <TopicSection title="Notes" topicId={topic?.id} />
           </Link>
         </div>
         <div>
-          <div className="w-full flex">
-            <h2 className="justify-self-start text-[35px] tracking-wide text-neutral-400">
-              Images
-            </h2>
-          </div>
           <Link href={`/${topic?.id}/images`}>
-            <NotesSection />
+            <TopicSection title="Images" topicId={topic?.id} />
           </Link>
         </div>
         <div>
-          <div className="w-full flex">
-            <h2 className="justify-self-start text-[35px] tracking-wide text-neutral-400">
-              Attachments
-            </h2>
-          </div>
           <Link href={`/${topic?.id}/attachments`}>
-            <NotesSection />
+            <TopicSection title="Attachments" topicId={topic?.id} />
           </Link>
         </div>
         <div>
-          <div className="w-full flex">
-            <h2 className="justify-self-start text-[35px] tracking-wide text-neutral-400">
-              Links
-            </h2>
-          </div>
           <Link href={`/${topic?.id}/links`}>
-            <NotesSection />
+            <TopicSection title="Links" topicId={topic?.id} />
           </Link>
         </div>
       </div>
