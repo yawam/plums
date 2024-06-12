@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import TopicSection from "../_components/notesSection";
+import TopicSection from "../_components/topicSection";
 
 const TopicPage = async ({ params }: { params: { topicId: string } }) => {
   const topic = await db.topic.findUnique({
@@ -18,7 +18,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
   // console.log('Topic', topic)
 
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       <div className="flex justify-center my-2">
         <h2 className="text-4xl tracking-widest align-middle font-semibold lg:mt-8">
           {topic?.title.toUpperCase()}
@@ -52,7 +52,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
