@@ -2,7 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import TopicSection from "../_components/notesSection";
+import TopicSection from "../_components/topicSection";
+
+const titles = [
+  "Notes", "Images", "Attachments", "Links"
+];
 
 const TopicPage = async ({ params }: { params: { topicId: string } }) => {
   const topic = await db.topic.findUnique({
@@ -18,7 +22,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
   // console.log('Topic', topic)
 
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       <div className="flex justify-center my-2">
         <h2 className="text-4xl tracking-widest align-middle font-semibold lg:mt-8">
           {topic?.title.toUpperCase()}
@@ -31,28 +35,11 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
       </div>
 
       <div className="flex flex-col gap-2 mt-10 px-4 w-full md:max-w-[80%] md:gap-12 mx-auto">
-        <div>
-          <Link href={`/${topic?.id}/notes`}>
-            <TopicSection title="Notes" topicId={topic?.id} />
-          </Link>
-        </div>
-        <div>
-          <Link href={`/${topic?.id}/images`}>
-            <TopicSection title="Images" topicId={topic?.id} />
-          </Link>
-        </div>
-        <div>
-          <Link href={`/${topic?.id}/attachments`}>
-            <TopicSection title="Attachments" topicId={topic?.id} />
-          </Link>
-        </div>
-        <div>
-          <Link href={`/${topic?.id}/links`}>
-            <TopicSection title="Links" topicId={topic?.id} />
-          </Link>
-        </div>
+        {titles.map((title) => (
+          <TopicSection key={title} title={title} topicId={topic?.id} />
+        ))}
       </div>
-    </main>
+    </div>
   );
 };
 
