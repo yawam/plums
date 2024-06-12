@@ -19,7 +19,7 @@ const Notes = () => {
   useEffect(() => {
     async function fetchNotesByTopic(topicId: string) {
       try {
-        const response = await fetch(`/api/notes`);
+        const response = await fetch(`/api/notes?topicId=${topicId}`);
         const data = await response.json();
         setNotes(data.notes);
         console.log(data);
@@ -58,7 +58,7 @@ const Notes = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
-        {!notes.length && <p>Create your first note</p>}
+        {/* {!notes.length && <p>Create your first note</p>} */}
         {notes.map((notes) => (
           <Link href={`/${topicId}/notes/${notes.id}`}> {/* Get the topicID to put here*/}
             <NoteCard
