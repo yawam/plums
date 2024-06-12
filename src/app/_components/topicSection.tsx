@@ -40,18 +40,48 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
 
       <div className="w-[40%] flex justify-around mx-auto bg-fuchsia-900 shadow-xl rounded-xl h-[100px] text-white p-6 relative ">
         <Link
-          href={`/${topicId}/${title}`}
+          href={`/${topicId}/${title.toLowerCase()}`}
           className="block border-2 hover:bg-emerald-600 rounded-xl shadow-xl mr-2 absolute top-2 right-2 "
         >
           More...{" "}
         </Link>
-        {notes.map((note) => (
+        {title === "Notes" && notes.map((note) => (
             <Link
-              href={`/${topicId}/${title}/${note.id}`}
+              href={`/${topicId}/${title.toLowerCase()}/${note.id}`}
               key={note.id}
               className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
             >
               {note.title}
+            </Link>
+          ))}
+
+        {title === "Images" && images.map((image) => (
+            <Link
+              href={`/${topicId}/${title.toLowerCase()}/${image.id}`}
+              key={image.id}
+              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+            >
+              {image.imageUrl}
+            </Link>
+          ))}
+
+        {title === "Links" && links.map((link) => (
+            <Link
+              href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
+              key={link.id}
+              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+            >
+              {link.url}
+            </Link>
+          ))}
+
+        {title === "Attachments" && attachments.map((attachment) => (
+            <Link
+              href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
+              key={attachment.id}
+              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+            >
+              {attachment.fileUrl}
             </Link>
           ))}
       </div>
