@@ -1,7 +1,7 @@
 "use client";
 
 interface NoteCardProps {
-  note_id: number;
+  note_id: string;
   title: string;
   note: string;
 }
