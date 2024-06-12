@@ -1,11 +1,25 @@
 import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function GET() {
+// This handler fetches notes by topic ID
+export async function GET(req: NextRequest) {
     try {
-      const notes = await db.note.findMany();
+      const { searchParams } = new URL(req.url);
+      const topicId = searchParams.get('topicId');
+  
+      if (!topicId) {
+        return NextResponse.json({ message: 'Topic ID is missing.' }, { status: 400 });
+      }
+  
+      const notes = await db.note.findMany({
+        where: {
+          topicId: topicId // Assuming topicId is a string
+        }
+      });
+  
       return NextResponse.json({ notes });
     } catch (error) {
       console.error("Error handling GET request:", error);
+      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
   }
