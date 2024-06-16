@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import Image from "next/image";
 import Link from "next/link";
 
 interface TopicSectionProps {
@@ -31,17 +32,17 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
   //   console.log("Notes", notes);
 
   return (
-    <div className="flex flex-col justify-center">
-      <div className="w-full flex">
-        <h2 className="justify-self-start text-[35px] tracking-wide text-neutral-400">
-          {title}
+    <div className=" flex flex-col items-center">
+      <div className="w-[40%] flex justify-self-start">
+        <h2 className="text-[50px] text-neutral-400">
+          {title} 
         </h2>
       </div>
 
-      <div className="w-[40%] flex justify-around mx-auto bg-fuchsia-900 shadow-xl rounded-xl h-[100px] text-white p-6 relative ">
+      <div className="w-[40%] flex justify-evenly items-center mx-auto bg-fuchsia-900 shadow-xl rounded-xl text-white p-6 relative lg:h-[300px]">
         <Link
           href={`/${topicId}/${title.toLowerCase()}`}
-          className="block border-2 hover:bg-emerald-600 rounded-xl shadow-xl mr-2 absolute top-2 right-2 "
+          className=" p-2 block border-2 hover:bg-emerald-600 rounded-xl shadow-xl mr-2 absolute top-2 right-2 "
         >
           More...{" "}
         </Link>
@@ -49,9 +50,10 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <Link
               href={`/${topicId}/${title.toLowerCase()}/${note.id}`}
               key={note.id}
-              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              className="mt-4 p-2 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl cursor-pointer lg:h-[150px] lg:w-[200px]"
             >
-              {note.title}
+             <p className=" font-semibold tracking-wider my-2">{note.title}</p>
+             <p className=" overflow-hidden">{note.content}</p>
             </Link>
           ))}
 
@@ -59,9 +61,12 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <Link
               href={`/${topicId}/${title.toLowerCase()}/${image.id}`}
               key={image.id}
-              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              className="border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer h-[180px] w-[180px]"
             >
-              {image.imageUrl}
+              <div className="flex flex-col p-2">
+                <p className="pb-2">{image.description}</p>
+                <Image src={image.imageUrl} alt={image.id} width={80}height={80} className=" w-full h-[80%] rounded-xl"/>
+              </div>
             </Link>
           ))}
 
@@ -69,7 +74,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <Link
               href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
               key={link.id}
-              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
             >
               {link.url}
             </Link>
@@ -79,7 +84,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <Link
               href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
               key={attachment.id}
-              className="p-4 border-4 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
             >
               {attachment.fileUrl}
             </Link>

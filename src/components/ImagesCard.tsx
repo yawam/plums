@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 interface ImageCardProps {
-  image_id: number;
+  image_id: string;
   title: string;
   image_src: string;
   image_alt: string;
