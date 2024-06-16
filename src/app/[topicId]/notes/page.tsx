@@ -7,12 +7,18 @@ import "remixicon/fonts/remixicon.css";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import { Note } from "@prisma/client";
+import NewNoteModal from "@/pages/NewNoteModal";
 
 const Notes = () => {
   const router = useRouter();
   const params = useParams() as { topicId?: string };
   const topicId = params.topicId;
   const [notes, setNotes] = useState<Note[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     async function fetchNotesByTopic(topicId: string) {
@@ -45,10 +51,19 @@ const Notes = () => {
         >
           <i className="ri-arrow-left-circle-fill text-fuchsia-900 text-[90px]"></i>
         </Button>
-        <Button variant={"plusCircle"} size={"plusCircle"} onClick={() => {}}>
+        <Button
+          variant={"plusCircle"}
+          size={"plusCircle"}
+          onClick={toggleModal}
+        >
           <i className="ri-add-circle-fill text-fuchsia-900 text-[90px]" />
         </Button>
       </div>
+
+      {/* Check if modal is open and render modal */}
+      {isModalOpen && (
+        <NewNoteModal topicId={topicId} closeModal={toggleModal} />
+      )}
 
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
         {/* {!notes.length && <p>Create your first note</p>} */}
