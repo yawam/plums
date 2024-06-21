@@ -39,7 +39,7 @@ const Notes = () => {
   }, [topicId]); // Include topicId in the dependency array to trigger fetchNotesByTopic when it changes
 
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       <div className="flex justify-center my-2">
         <h2 className="text-4xl tracking-widest align-middle font-semibold">
           Notes
@@ -65,7 +65,7 @@ const Notes = () => {
         <NewNoteModal topicId={topicId} closeModal={toggleModal} />
       )}
 
-      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
+      <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4">
         {!notes.length && <p>Create your first note</p>}
         {notes.map((notes) => (
           <Link key={notes.id} href={`/${topicId}/notes/${notes.id}`}>
@@ -79,7 +79,7 @@ const Notes = () => {
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 };
 

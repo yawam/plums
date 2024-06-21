@@ -30,6 +30,7 @@ interface ModalProps {
 const formSchema = z.object({
   title: z.string().min(1, { message: "Topic title is required" }),
   content: z.string().min(1, { message: "Note Content is required" }),
+  topicId: z.string().min(1, { message: "Topic ID is required" }),
 });
 
 const NewNoteModal = ({ closeModal, topicId }: ModalProps) => {
@@ -43,6 +44,7 @@ const NewNoteModal = ({ closeModal, topicId }: ModalProps) => {
     defaultValues: {
       title: "",
       content: "",
+      topicId: topicId,
     },
   });
 
@@ -128,6 +130,7 @@ const NewNoteModal = ({ closeModal, topicId }: ModalProps) => {
                   </FormItem>
                 )}
               />
+
               <div className="flex justify-end mt-4">
                 <Button
                   type="button"

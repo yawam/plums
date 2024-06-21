@@ -9,7 +9,7 @@ interface PreviewProps {
   value: string;
 }
 
-export const Editor = ({ value }: PreviewProps) => {
+export const Preview = ({ value }: PreviewProps) => {
   const ReactQuill = useMemo(
     () => dynamic(() => import("react-quill"), { ssr: false }),
     []
