@@ -22,4 +22,31 @@ export async function GET(req: NextRequest) {
       console.error("Error handling GET request:", error);
       return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
+}
+
+export async function POST(req: Request) {
+  try {
+    const imageData = await req.json();
+    try {
+      await db.image.create({
+        data: {
+          description: imageData.description,
+          imageUrl: imageData.imageUrl,
+          topicId: imageData.topicId,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    return NextResponse.json({
+      message: "Image created successfully",
+      data: imageData,
+    });
+  } catch (error) {
+    console.error("Error handling POST request:", error);
+    return NextResponse.json(
+      { message: "Failed to create image" },
+      { status: 500 }
+    );
   }
+}
