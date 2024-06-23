@@ -7,12 +7,18 @@ import "remixicon/fonts/remixicon.css";
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { Image } from '@prisma/client';
+import NewImageModal from '@/pages/NewImageModal';
 
 const Images = () => {
   const router = useRouter()
   const params = useParams() as { topicId?: string };
   const topicId = params.topicId;
   const [images, setImages] = useState<Image[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     async function fetchImagesByTopic(topicId: string) {
@@ -48,14 +54,19 @@ const Images = () => {
         <Button
           variant={"plusCircle"}
           size={"plusCircle"}
-          onClick={() => {}}
+          onClick={toggleModal}
         >
           <i className="ri-add-circle-fill text-fuchsia-900 text-[90px]" />
         </Button>
       </div>
 
+      {/* Check if modal is open and render modal */}
+      {isModalOpen && (
+        <NewImageModal topicId={topicId} closeModal={toggleModal} />
+      )}
+
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
-        {!images.length && <p>Create your first note</p>}
+        {!images.length && <p>Add your first image</p>}
         {images.map((images) => (
           <Link key={images.id} href={`/${topicId}/images/${images.id}`}>
             <ImageCard
