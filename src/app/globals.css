@@ -9,4 +9,8 @@ body,
   background-color: #fff1f2;
 }
 
+.ql-container {
+  font-size: 20px !important;
+}
+
 @import "~@uploadthing/react/styles.css";

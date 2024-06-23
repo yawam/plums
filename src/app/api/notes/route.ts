@@ -30,6 +30,8 @@ export async function GET(req: NextRequest) {
   }
 }
 
+//POSTING note by topic ID
+
 export async function POST(req: NextRequest) {
   try {
     const noteData = await req.json();

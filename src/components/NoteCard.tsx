@@ -12,7 +12,7 @@ interface NoteCardProps {
 const NoteCard = ({ note_id, title, note }: NoteCardProps) => {
   return (
     <div
-      className="rounded-2xl bg-fuchsia-900 text-white h-[180px] shadow-xl p-4 relative"
+      className="rounded-2xl bg-fuchsia-900 text-white h-[180px] shadow-xl p-4 relative cursor-pointer"
       key={note_id}
     >
       <div className="absolute top-2 right-2 cursor-pointer transition hover:bg-black hover:bg-opacity-50 p-2 shadow-xl rounded-xl">
