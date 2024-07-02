@@ -33,12 +33,12 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
   //   console.log("Notes", notes);
 
   return (
-    <div className=" flex flex-col items-center">
+    <div className=" flex flex-col md:items-center">
       <div className="w-[40%] flex justify-self-start">
         <h2 className="text-[50px] text-neutral-400">{title}</h2>
       </div>
 
-      <div className="w-[40%] flex justify-evenly items-center mx-auto bg-fuchsia-900 shadow-xl rounded-xl text-white p-6 relative lg:h-[300px]">
+      <div className="w-[90%] h-[200px] md:w-[40%] items-center flex mx-auto bg-fuchsia-900 shadow-xl rounded-xl text-white p-6 relative lg:h-[300px]">
         <Link
           href={`/${topicId}/${title.toLowerCase()}`}
           className=" p-2 block border-2 hover:bg-emerald-600 rounded-xl shadow-xl mr-2 absolute top-2 right-2 "
@@ -50,7 +50,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <Link
               href={`/${topicId}/${title.toLowerCase()}/${note.id}`}
               key={note.id}
-              className="mt-4 p-2 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl cursor-pointer lg:h-[150px] lg:w-[200px] overflow-hidden"
+              className="mt-4 p-2 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl cursor-pointer w-[130px] h-[130px] lg:h-[150px] lg:w-[200px] overflow-hidden"
             >
               <p className=" font-semibold tracking-wider my-2">{note.title}</p>
               <Preview value={note.content} />

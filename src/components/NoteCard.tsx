@@ -10,6 +10,7 @@ interface NoteCardProps {
 }
 
 const NoteCard = ({ note_id, title, note }: NoteCardProps) => {
+  const handleDelete = () => {};
   return (
     <div
       className="rounded-2xl bg-fuchsia-900 text-white h-[180px] shadow-xl p-4 relative cursor-pointer"

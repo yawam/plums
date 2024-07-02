@@ -58,3 +58,9 @@ export async function PATCH(req: NextRequest) {
     );
   }
 }
+
+// DELETE note by noteID
+export async function DELETE(req: NextRequest) {
+  try {
+  } catch {}
+}
