@@ -45,59 +45,87 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
         >
           More...{" "}
         </Link>
-        {title === "Notes" &&
-          notes.map((note) => (
-            <Link
-              href={`/${topicId}/${title.toLowerCase()}/${note.id}`}
-              key={note.id}
-              className="mt-4 p-2 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl cursor-pointer w-[130px] h-[130px] lg:h-[150px] lg:w-[200px] overflow-hidden"
-            >
-              <p className=" font-semibold tracking-wider my-2">{note.title}</p>
-              <Preview value={note.content} />
-            </Link>
-          ))}
+        {title === "Notes" && (
+          notes && notes.length > 0 ? (
+            notes.map((note) => (
+              <Link
+                href={`/${topicId}/${title.toLowerCase()}/${note.id}`}
+                key={note.id}
+                className="mt-4 p-2 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl cursor-pointer w-[130px] h-[130px] lg:h-[150px] lg:w-[200px] overflow-hidden"
+              >
+                <p className="font-semibold tracking-wider my-2">{note.title}</p>
+                <Preview value={note.content} />
+              </Link>
+            ))
+          ) : (
+            <p className="mt-4 p-2 w-full text-center">
+              Create your first note
+            </p>
+          )
+        )}
 
-        {title === "Images" &&
-          images.map((image) => (
-            <Link
-              href={`/${topicId}/${title.toLowerCase()}/${image.id}`}
-              key={image.id}
-              className="border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer h-[180px] w-[180px]"
-            >
-              <div className="flex flex-col p-2">
-                <p className="pb-2">{image.description}</p>
-                <Image
-                  src={image.imageUrl}
-                  alt={image.id}
-                  width={80}
-                  height={80}
-                  className=" w-full h-[80%] rounded-xl"
-                />
-              </div>
-            </Link>
-          ))}
+        {title === "Images" && (
+          images && images.length > 0 ? (
+            images.map((image) => (
+              <Link
+                href={`/${topicId}/${title.toLowerCase()}/${image.id}`}
+                key={image.id}
+                className="border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer h-[180px] w-[180px]"
+              >
+                <div className="flex flex-col p-2">
+                  <p className="pb-2">{image.description}</p>
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.id}
+                    width={80}
+                    height={80}
+                    className=" w-full h-[80%] rounded-xl"
+                  />
+                </div>
+              </Link>
+            ))
+          ) : (
+            <p className="mt-4 p-2 w-full text-center">
+              Add your first image
+            </p>
+          )
+        )}
 
-        {title === "Links" &&
-          links.map((link) => (
-            <Link
-              href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
-              key={link.id}
-              className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
-            >
-              {link.url}
-            </Link>
-          ))}
+        {title === "Links" && (
+          links && links.length > 0 ? (
+            links.map((link) => (
+              <Link
+                href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
+                key={link.id}
+                className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              >
+                {link.url}
+              </Link>
+            ))
+          ) : (
+            <p className="mt-4 p-2 w-full text-center">
+              Add your first link
+            </p>
+          )
+        )}
 
-        {title === "Attachments" &&
-          attachments.map((attachment) => (
-            <Link
-              href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
-              key={attachment.id}
-              className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
-            >
-              {attachment.fileUrl}
-            </Link>
-          ))}
+        {title === "Attachments" && (
+          attachments && attachments.length > 0 ? (
+            attachments.map((attachment) => (
+              <Link
+                href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
+                key={attachment.id}
+                className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              >
+                {attachment.fileUrl}
+              </Link>
+            ))
+          ) : (
+            <p className="mt-4 p-2 w-full text-center">
+              Add your first attachment
+            </p>
+          )
+        )}
       </div>
     </div>
   );
