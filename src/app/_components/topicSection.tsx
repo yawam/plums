@@ -99,7 +99,8 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
                 key={link.id}
                 className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
               >
-                {link.url}
+                <Preview value={link.url} />
+                <p className="pt-2">{link.description}</p>
               </Link>
             ))
           ) : (
