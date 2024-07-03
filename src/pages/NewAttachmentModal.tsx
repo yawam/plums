@@ -37,6 +37,7 @@ const NewAttachmentModal = ({ closeModal, topicId }: ModalProps) => {
     const [fileUrl, setFileUrl] = useState('');
     const [description, setDescription] = useState('');
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [fileType, setFileType] = useState('');
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -61,9 +62,10 @@ const NewAttachmentModal = ({ closeModal, topicId }: ModalProps) => {
         setShowConfirmation(false);
       };
 
-      const handleFileUploadChange = (url: string | undefined) => {
-        if(url) {
+      const handleFileUploadChange = (url: string | undefined, type: string | undefined) => {
+        if(url && type) {
             setFileUrl(url);
+            setFileType(type);
             form.setValue("fileUrl", url);
         }
       };
@@ -96,6 +98,36 @@ const NewAttachmentModal = ({ closeModal, topicId }: ModalProps) => {
 
     const handleCancelClick = () => {
         setShowConfirmation(true);
+    };
+
+    const renderFilePreview = () => {
+      switch (fileType) {
+        case 'image':
+          return <img src={fileUrl} alt={description} className="max-w-full h-auto" />;
+        case 'video':
+          return <video src={fileUrl} controls className="max-w-full h-auto" />;
+        case 'audio':
+          return <audio src={fileUrl} controls />;
+        case 'pdf':
+          return (
+            <embed
+              src={fileUrl}
+              type="application/pdf"
+              width="100%"
+              height="400px"
+            />
+          );
+        case 'text':
+          return (
+            <iframe
+              src={fileUrl}
+              className="w-full h-96"
+              title={description}
+            />
+          );
+        default:
+          return <p>File preview is not available</p>;
+      }
     };
 
     return (
@@ -133,17 +165,11 @@ const NewAttachmentModal = ({ closeModal, topicId }: ModalProps) => {
                         <FormControl>
                           {!fileUrl ? (
                             <FileUpload
-                                onChange={handleFileUploadChange}
-                                endpoint="topicCoverImage"
+                                onChange={(url, type) => handleFileUploadChange(url, type)}
+                                endpoint="topicAttachment"
                             />
                           ) : (
-                            <Image
-                                src={fileUrl}
-                                alt={description}
-                                className="max-w-full h-auto"
-                                width={300}
-                                height={300}
-                            />
+                            renderFilePreview()
                           )}
                         </FormControl>
                         <FormMessage />

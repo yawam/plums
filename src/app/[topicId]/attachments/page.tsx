@@ -68,15 +68,13 @@ const Attachments = () => {
       <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4">
         {!attachments.length && <p>Create your first note</p>}
         {attachments.map((attachments) => (
-          <Link key={attachments.id} href={`/${topicId}/attachments/${attachments.id}`}>
-            {" "}
-            {/* Get the topicID to put here*/}
+          <div>
             <AttachmentCard
               attachment_id={attachments.id}
               fileUrl={attachments.fileUrl}
               description={attachments.description || ""}
             />
-          </Link>
+          </div>
         ))}
       </div>
     </main>

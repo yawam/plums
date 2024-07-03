@@ -133,7 +133,7 @@ const NewImageModal = ({ closeModal, topicId }: ModalProps) => {
                         {!imageUrl ? (
                             <FileUpload
                             onChange={handleFileUploadChange}
-                            endpoint="topicCoverImage"
+                            endpoint="topicImage"
                             />
                         ) : (
                             <Image
