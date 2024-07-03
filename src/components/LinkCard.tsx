@@ -12,7 +12,7 @@ interface LinkCardProps {
 const LinkCard = ({ link_id, description, url }: LinkCardProps) => {
   const handleDelete = () => {};
   return (
-    <div className="rounded-2xl bg-fuchsia-900 text-white h-[250px] shadow-xl p-4" key={link_id}>
+    <div className="rounded-2xl bg-fuchsia-900 text-white h-[180px] shadow-xl p-4 relative cursor-pointer" key={link_id}>
       <div className="absolute top-2 right-2 cursor-pointer transition hover:bg-black hover:bg-opacity-50 p-2 shadow-xl rounded-xl">
         <BsTrash
           size={25}
@@ -20,8 +20,8 @@ const LinkCard = ({ link_id, description, url }: LinkCardProps) => {
         />
       </div>
 
-      <Preview value={url} />
       <p className="text-sm">{description}</p>
+      <Preview value={url} />
     </div>
   );
 };
