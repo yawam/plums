@@ -1,16 +1,42 @@
 'use client'
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Button } from '@/components/ui/button'
 import LinkCard from '@/components/LinkCard';
 import "remixicon/fonts/remixicon.css";
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
+import { Link as PrismaLink } from '@prisma/client';
+import NewLinkModal from "@/pages/NewLinkModal"
 
 const Links = () => {
   const router = useRouter()
   const params = useParams() as { topicId?: string };
   const topicId = params.topicId;
+  const [links, setLinks] = useState<PrismaLink[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  useEffect(() => {
+    async function fetchLinksByTopic(topicId: string) {
+      try {
+        const response = await fetch(`/api/links?topicId=${topicId}`);
+        const data = await response.json();
+        setLinks(data.notes);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching link:", error);
+      }
+    }
+
+    // Fetch notes for the current topicId
+    if (topicId) {
+      fetchLinksByTopic(topicId);
+    }
+  }, [topicId]);
 
   return (
     <main className="flex flex-col">
@@ -28,27 +54,30 @@ const Links = () => {
         <Button
           variant={"plusCircle"}
           size={"plusCircle"}
-          onClick={() => {}}
+          onClick={toggleModal}
         >
           <i className="ri-add-circle-fill text-fuchsia-900 text-[90px]" />
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
-        
-        <Link href={`/${topicId}/links/1`}>
-          <LinkCard
-            link_id={1}
-            title="Google Link"
-            link="google.com"
-          />
-        </Link>
+      {/* Check if modal is open and render modal */}
+      {isModalOpen && (
+        <NewLinkModal topicId={topicId} closeModal={toggleModal} />
+      )}
 
-        <LinkCard
-          link_id={2}
-          title="Github Link"
-          link="github.com"
-        />
+      <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4">
+        {!links.length && <p>Create your first note</p>}
+        {links.map((links) => (
+          <Link key={links.id} href={`/${topicId}/links/${links.id}`}>
+            {" "}
+            {/* Get the topicID to put here*/}
+            <LinkCard
+              link_id={links.id}
+              url={links.url}
+              description={links.description || ''}
+            />
+          </Link>
+        ))}
       </div>
     </main>
   );
