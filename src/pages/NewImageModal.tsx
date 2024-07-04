@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -61,9 +61,9 @@ const NewImageModal = ({ closeModal, topicId }: ModalProps) => {
   };
 
   const handleFileUploadChange = (url: string | undefined) => {
-    if(url) {
-        setImageUrl(url);
-        form.setValue("imageUrl", url);
+    if (url) {
+      setImageUrl(url);
+      form.setValue("imageUrl", url);
     }
   };
 
@@ -130,20 +130,20 @@ const NewImageModal = ({ closeModal, topicId }: ModalProps) => {
                   <FormItem>
                     <FormLabel>Import Image</FormLabel>
                     <FormControl>
-                        {!imageUrl ? (
-                            <FileUpload
-                            onChange={handleFileUploadChange}
-                            endpoint="topicCoverImage"
-                            />
-                        ) : (
-                            <Image
-                            src={imageUrl}
-                            alt="Uploaded Preview"
-                            className="max-w-full h-auto"
-                            width={300}
-                            height={300}
-                            />
-                        )}
+                      {!imageUrl ? (
+                        <FileUpload
+                          onChange={handleFileUploadChange}
+                          endpoint="topicImage"
+                        />
+                      ) : (
+                        <Image
+                          src={imageUrl}
+                          alt="Uploaded Preview"
+                          className="max-w-full h-auto"
+                          width={300}
+                          height={300}
+                        />
+                      )}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
