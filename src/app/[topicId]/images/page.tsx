@@ -62,10 +62,12 @@ const Images = () => {
 
       {/* Check if modal is open and render modal */}
       {isModalOpen && (
-        <NewImageModal topicId={topicId} closeModal={toggleModal} />
+        <div className="fixed inset-0 z-50">
+          <NewImageModal topicId={topicId} closeModal={toggleModal} />
+        </div>
       )}
 
-      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4 z-30">
         {!images.length && <p>Add your first image</p>}
         {images.map((images) => (
           <Link key={images.id} href={`/${topicId}/images/${images.id}`}>

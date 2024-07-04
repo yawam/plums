@@ -62,10 +62,12 @@ const Links = () => {
 
       {/* Check if modal is open and render modal */}
       {isModalOpen && (
-        <NewLinkModal topicId={topicId} closeModal={toggleModal} />
+        <div className="fixed inset-0 z-50">
+          <NewLinkModal topicId={topicId} closeModal={toggleModal} />
+        </div>
       )}
 
-      <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4">
+      <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4 z-30">
         {!links.length && <p>Create your first note</p>}
         {links.map((links) => (
           <Link key={links.id} href={`/${topicId}/links/${links.id}`}>
