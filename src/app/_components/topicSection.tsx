@@ -38,7 +38,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
         <h2 className="text-[50px] text-neutral-400">{title}</h2>
       </div>
 
-      <div className="w-[90%] h-[200px] md:w-[40%] items-center flex mx-auto bg-fuchsia-900 shadow-xl rounded-xl text-white p-6 relative lg:h-[300px]">
+      <div className="w-[90%] h-[200px] md:w-[40%] items-center flex justify-evenly mx-auto bg-fuchsia-900 shadow-xl rounded-xl text-white p-6 relative lg:h-[300px]">
         <Link
           href={`/${topicId}/${title.toLowerCase()}`}
           className=" p-2 block border-2 hover:bg-emerald-600 rounded-xl shadow-xl mr-2 absolute top-2 right-2 "
