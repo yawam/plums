@@ -45,15 +45,17 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
         >
           More...{" "}
         </Link>
-        {title === "Notes" && (
-          notes && notes.length > 0 ? (
-            notes.map((note) => (
+        {title === "Notes" &&
+          (notes && notes.length > 0 ? (
+            notes.slice(0, 2).map((note) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${note.id}`}
                 key={note.id}
                 className="mt-4 p-2 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl cursor-pointer w-[130px] h-[130px] lg:h-[150px] lg:w-[200px] overflow-hidden"
               >
-                <p className="font-semibold tracking-wider my-2">{note.title}</p>
+                <p className="font-semibold tracking-wider my-2">
+                  {note.title}
+                </p>
                 <Preview value={note.content} />
               </Link>
             ))
@@ -61,11 +63,10 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <p className="mt-4 p-2 w-full text-center">
               Create your first note
             </p>
-          )
-        )}
+          ))}
 
-        {title === "Images" && (
-          images && images.length > 0 ? (
+        {title === "Images" &&
+          (images && images.length > 0 ? (
             images.map((image) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${image.id}`}
@@ -85,14 +86,11 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
               </Link>
             ))
           ) : (
-            <p className="mt-4 p-2 w-full text-center">
-              Add your first image
-            </p>
-          )
-        )}
+            <p className="mt-4 p-2 w-full text-center">Add your first image</p>
+          ))}
 
-        {title === "Links" && (
-          links && links.length > 0 ? (
+        {title === "Links" &&
+          (links && links.length > 0 ? (
             links.map((link) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
@@ -104,14 +102,11 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
               </Link>
             ))
           ) : (
-            <p className="mt-4 p-2 w-full text-center">
-              Add your first link
-            </p>
-          )
-        )}
+            <p className="mt-4 p-2 w-full text-center">Add your first link</p>
+          ))}
 
-        {title === "Attachments" && (
-          attachments && attachments.length > 0 ? (
+        {title === "Attachments" &&
+          (attachments && attachments.length > 0 ? (
             attachments.map((attachment) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
@@ -125,8 +120,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
             <p className="mt-4 p-2 w-full text-center">
               Add your first attachment
             </p>
-          )
-        )}
+          ))}
       </div>
     </div>
   );

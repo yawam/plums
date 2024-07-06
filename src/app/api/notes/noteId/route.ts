@@ -62,5 +62,26 @@ export async function PATCH(req: NextRequest) {
 // DELETE note by noteID
 export async function DELETE(req: NextRequest) {
   try {
-  } catch {}
+    const { searchParams } = new URL(req.url);
+    const noteId = searchParams.get("noteId");
+    if (!noteId) {
+      return NextResponse.json(
+        { message: "Note Id is missing." },
+        { status: 400 }
+      );
+    }
+
+    const deletedNote = await db.note.delete({
+      where: {
+        id: noteId,
+      },
+    });
+
+    return NextResponse.json({ deletedNote });
+  } catch {
+    return NextResponse.json(
+      { message: "Internal server error deleting note" },
+      { status: 500 }
+    );
+  }
 }
