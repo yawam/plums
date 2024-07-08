@@ -14,7 +14,7 @@ export const ourFileRouter = {
   topicAttachment: f([
     "text",
     "image",
-    "video",
+    // "video",
     "audio",
     "pdf",
   ]).onUploadComplete(() => {}),

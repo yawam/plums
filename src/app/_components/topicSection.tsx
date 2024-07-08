@@ -67,14 +67,14 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
 
         {title === "Images" &&
           (images && images.length > 0 ? (
-            images.map((image) => (
+            images.slice(0, 2).map((image) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${image.id}`}
                 key={image.id}
                 className="border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer h-[180px] w-[180px]"
               >
                 <div className="flex flex-col p-2">
-                  <p className="pb-2">{image.description}</p>
+                  {/* <p className="pb-2">{image.description}</p> */}
                   <Image
                     src={image.imageUrl}
                     alt={image.id}
@@ -91,7 +91,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
 
         {title === "Links" &&
           (links && links.length > 0 ? (
-            links.map((link) => (
+            links.slice(0, 2).map((link) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
                 key={link.id}
@@ -107,7 +107,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
 
         {title === "Attachments" &&
           (attachments && attachments.length > 0 ? (
-            attachments.map((attachment) => (
+            attachments.slice(0, 2).map((attachment) => (
               <Link
                 href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
                 key={attachment.id}

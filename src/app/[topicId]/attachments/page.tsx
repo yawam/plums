@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import AttachmentCard from '@/components/AttachmentsCard';
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import AttachmentCard from "@/components/AttachmentsCard";
 import "remixicon/fonts/remixicon.css";
-import Link from 'next/link';
-import { useRouter, useParams } from 'next/navigation';
-import { Attachment } from '@prisma/client';
-import NewAttachmentModal from '@/pages/NewAttachmentModal';
+import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
+import { Attachment } from "@prisma/client";
+import NewAttachmentModal from "@/pages/NewAttachmentModal";
 
 const Attachments = () => {
-  const router = useRouter()
+  const router = useRouter();
   const params = useParams() as { topicId?: string };
   const topicId = params.topicId;
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -67,18 +67,17 @@ const Attachments = () => {
 
       <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4">
         {!attachments.length && <p>Create your first note</p>}
-        {attachments.map((attachments) => (
-          <div>
-            <AttachmentCard
-              attachment_id={attachments.id}
-              fileUrl={attachments.fileUrl}
-              description={attachments.description || ""}
-            />
-          </div>
+        {attachments.map((attachments, key) => (
+          <AttachmentCard
+            key={attachments.id}
+            attachment_id={attachments.id}
+            fileUrl={attachments.fileUrl}
+            description={attachments.description || ""}
+          />
         ))}
       </div>
     </main>
   );
-}
+};
 
-export default Attachments
+export default Attachments;

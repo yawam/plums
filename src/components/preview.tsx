@@ -6,7 +6,7 @@ import React, { useMemo } from "react";
 import "react-quill/dist/quill.bubble.css";
 
 interface PreviewProps {
-  value: string;
+  value: string | undefined;
 }
 
 export const Preview = ({ value }: PreviewProps) => {

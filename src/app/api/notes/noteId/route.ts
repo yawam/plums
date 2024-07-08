@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-// This handler fetches notes by noteID
+// This handler fetches note by noteID
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -14,13 +14,13 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const notes = await db.note.findMany({
+    const note = await db.note.findUnique({
       where: {
         id: noteId, // Assuming noteId is a string
       },
     });
 
-    return NextResponse.json({ notes });
+    return NextResponse.json({ note });
   } catch (error) {
     console.error("Error handling GET request:", error);
     return NextResponse.json(

@@ -28,7 +28,7 @@ const NoteIdPage = ({
 }: {
   params: { topicId: string; noteId: string };
 }) => {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [note, setNote] = useState<Note | null | undefined>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const router = useRouter();
@@ -42,9 +42,9 @@ const NoteIdPage = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: notes[0]?.title,
-      content: notes[0]?.content,
-      noteId: notes[0]?.id,
+      title: note?.title,
+      content: note?.content,
+      noteId: note?.id,
     },
   });
 
@@ -53,13 +53,13 @@ const NoteIdPage = ({
       try {
         const response = await fetch(`/api/notes/noteId?noteId=${noteId}`);
         const data = await response.json();
-        setNotes(data.notes);
+        console.log(`Get Data`, data.note);
+        setNote(data.note);
         form.reset({
-          title: data.notes[0]?.title || "",
-          content: data.notes[0]?.content || "",
-          noteId: data.notes[0]?.id || "",
+          title: data.note?.title || "",
+          content: data.note?.content || "",
+          noteId: data.note?.id || "",
         });
-        console.log(data);
       } catch (error) {
         console.error("Error fetching note:", error);
       }
@@ -71,7 +71,7 @@ const NoteIdPage = ({
   }, [params.noteId, form]);
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("Submitted values", values);
+    // console.log("Submitted values", values);
 
     // Add your submit logic here
     const response = await fetch("/api/notes/noteId", {
@@ -85,6 +85,13 @@ const NoteIdPage = ({
 
     if (data) {
       router.refresh();
+      console.log(`Patch Data`, data.note);
+      setNote(data.note);
+      form.reset({
+        title: data.note?.title || "",
+        content: data.note?.content || "",
+        noteId: data.note?.id || "",
+      });
       toast.success("Note updated successfully!");
       setIsEditing(false);
       setIsEditingTitle(false);
@@ -135,7 +142,7 @@ const NoteIdPage = ({
             onDoubleClick={() => setIsEditingTitle(true)}
             className="text-4xl align-middle font-semibold mb-4 select-all"
           >
-            {notes[0]?.title}
+            {note?.title}
           </h2>
         )}
 
@@ -189,7 +196,7 @@ const NoteIdPage = ({
               </form>
             </Form>
           ) : (
-            <Preview value={notes[0]?.content} />
+            <Preview value={note?.content} />
           )}
         </div>
       </div>

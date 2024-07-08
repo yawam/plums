@@ -68,7 +68,6 @@ const Notes = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4 z-30">
-        {!notes.length && <p>Create your first note</p>}
         {notes.map((notes) => (
           <Link key={notes.id} href={`/${topicId}/notes/${notes.id}`}>
             {" "}

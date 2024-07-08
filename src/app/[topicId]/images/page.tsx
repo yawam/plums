@@ -68,7 +68,7 @@ const Images = () => {
       )}
 
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4 z-30">
-        {!images.length && <p>Add your first image</p>}
+        {/* {!images.length && <p>Add your first image</p>} */}
         {images.map((images) => (
           <ImageCard
             key={images.id}
