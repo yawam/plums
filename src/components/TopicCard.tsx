@@ -10,7 +10,7 @@ interface TopicCardProps {
 
 const TopicCard = ({ title, description, imageUrl }: TopicCardProps) => {
   return (
-    <div className="rounded-2xl bg-fuchsia-900 text-white shadow-xl w-full h-[300px] lg:h-[350px] lg:w-[300px]">
+    <div className="rounded-2xl bg-fuchsia-900 text-white shadow-xl w-full h-[300px] lg:h-[300px]">
       <div className="flex justify-center mb-3 overflow-hidden h-[60%]">
         <Image
           className="rounded-t-xl w-full object-cover"
