@@ -8,12 +8,14 @@ export async function POST(req: Request) {
     console.log("Title:", topicData.title);
     console.log("Description:", topicData.description);
     console.log("Image URL:", topicData.imageUrl);
+    console.log("Importance:", topicData.importance);
     try {
       await db.topic.create({
         data: {
           title: topicData.title,
           description: topicData.description,
           imageUrl: topicData.imageUrl,
+          importance: topicData.importance,
         },
       });
     } catch (error) {

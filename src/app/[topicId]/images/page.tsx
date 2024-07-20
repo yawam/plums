@@ -73,9 +73,10 @@ const Images = () => {
           <ImageCard
             key={images.id}
             image_id={images.id}
-            title={images.description || ""}
+            description={images.description || ""}
             image_src={images.imageUrl}
             image_alt={images.id}
+            topicId={images.topicId}
           />
         ))}
       </div>

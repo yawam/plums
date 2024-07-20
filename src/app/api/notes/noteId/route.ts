@@ -85,3 +85,26 @@ export async function DELETE(req: NextRequest) {
     );
   }
 }
+
+// Inserting note for deletion into recently_deleted_notes table
+export async function POST(req: NextRequest) {
+  try {
+    const notesData = await req.json();
+    console.log(notesData);
+    const recentlyDeletedNote = await db.recently_Deleted_Note.create({
+      data: {
+        id: notesData.noteId,
+        title: notesData.title,
+        content: notesData.content,
+        topicId: notesData.topicId,
+      },
+    });
+    return NextResponse.json({ recentlyDeletedNote });
+  } catch (error) {
+    console.error("Error handling POST request:", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

@@ -35,10 +35,10 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const noteData = await req.json();
-    console.log(noteData);
-    console.log("Title:", noteData.title);
-    console.log("Content:", noteData.content);
-    console.log("Topic ID:", noteData.topicId);
+    // console.log(noteData);
+    // console.log("Title:", noteData.title);
+    // console.log("Content:", noteData.content);
+    // console.log("Topic ID:", noteData.topicId);
     const note = await db.note.create({
       data: {
         title: noteData.title,

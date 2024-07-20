@@ -6,32 +6,47 @@ import { BsTrash } from "react-icons/bs";
 
 interface ImageCardProps {
   image_id: string;
-  title: string;
+  description: string;
   image_src: string;
   image_alt: string;
+  topicId: string;
 }
 
 const ImageCard = ({
   image_id,
-  title,
+  description,
   image_src,
   image_alt,
+  topicId,
 }: ImageCardProps) => {
   const handleDelete = async () => {
     const imageId = image_id;
-    const response = await fetch(`/api/images`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ imageId }),
+
+    const insertDeletedImage = await fetch(`/api/recentlyDeletedImages`, {
+      method: "POST",
+      body: JSON.stringify({
+        id: image_id,
+        description: description,
+        imageUrl: image_src,
+        topicId: topicId,
+      }),
     });
-    const data = await response.json();
-    if (data) {
-      toast.success("Image Deleted");
-      window.location.reload();
-    } else {
-      toast.error("Error deleting image");
+    const insertedData = await insertDeletedImage.json();
+    if (insertedData) {
+      const response = await fetch(`/api/images`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imageId }),
+      });
+      const data = await response.json();
+      if (data) {
+        toast.success("Image Deleted");
+        window.location.reload();
+      } else {
+        toast.error("Error deleting image");
+      }
     }
   };
   return (
@@ -46,7 +61,7 @@ const ImageCard = ({
         />
       </div>
 
-      <h3>{title}</h3>
+      <h3>{description}</h3>
       <Image src={image_src} alt={image_alt} width={150} height={150} />
     </div>
   );

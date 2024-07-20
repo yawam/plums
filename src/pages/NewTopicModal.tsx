@@ -21,6 +21,13 @@ import { Textarea } from "@/components/ui/textarea";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ModalProps {
   closeModal: () => void;
@@ -30,6 +37,7 @@ const formSchema = z.object({
   title: z.string().min(1, { message: "Topic title is required" }),
   description: z.string().min(1, { message: "Description is required" }),
   imageUrl: z.string().min(1, { message: "ImageUrl is required" }),
+  importance: z.enum(["LOW", "MEDIUM", "HIGH"]).optional(),
 });
 
 const NewTopicModal = ({ closeModal }: ModalProps) => {
@@ -44,6 +52,7 @@ const NewTopicModal = ({ closeModal }: ModalProps) => {
       title: "",
       description: "",
       imageUrl: "",
+      importance: "LOW",
     },
   });
 
@@ -109,7 +118,7 @@ const NewTopicModal = ({ closeModal }: ModalProps) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-2"
+              className="space-y-2 overflow-y-scroll"
             >
               <h2 className="text-lg font-bold">New Topic</h2>
               <FormField
@@ -160,6 +169,31 @@ const NewTopicModal = ({ closeModal }: ModalProps) => {
                         />
                       )}
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="importance"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Importance</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select level of importance" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-slate-100">
+                        <SelectItem value="LOW">LOW</SelectItem>
+                        <SelectItem value="MEDIUM">MEDIUM</SelectItem>
+                        <SelectItem value="HIGH">HIGH</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

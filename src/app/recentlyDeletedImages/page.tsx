@@ -2,18 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import NoteCard from "@/components/NoteCard";
+import ImageCard from "@/components/ImagesCard";
 import "remixicon/fonts/remixicon.css";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
-import { Note } from "@prisma/client";
-import NewNoteModal from "@/pages/NewNoteModal";
+import { Recently_Deleted_Image } from "@prisma/client";
+import NewImageModal from "@/pages/NewImageModal";
+import RecentlyDeletedImageCard from "@/components/recentlyDeletedImageCard";
 
-const Notes = () => {
+const Images = () => {
   const router = useRouter();
   const params = useParams() as { topicId?: string };
   const topicId = params.topicId;
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [images, setImages] = useState<Recently_Deleted_Image[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -21,28 +22,28 @@ const Notes = () => {
   };
 
   useEffect(() => {
-    async function fetchNotesByTopic(topicId: string) {
+    async function fetchRecentlyDeletedImages() {
       try {
-        const response = await fetch(`/api/notes?topicId=${topicId}`);
+        const response = await fetch(`/api/recentlyDeletedImages`, {
+          method: "GET",
+        });
         const data = await response.json();
-        setNotes(data.notes);
-        // console.log(data);
+        setImages(data.images);
+        console.log(data);
       } catch (error) {
-        console.error("Error fetching notes:", error);
+        console.error("Error fetching images: ", error);
       }
     }
 
-    // Fetch notes for the current topicId
-    if (topicId) {
-      fetchNotesByTopic(topicId);
-    }
-  }, [topicId]); // Include topicId in the dependency array to trigger fetchNotesByTopic when it changes
+    // Fetch images for the current topicId
+    fetchRecentlyDeletedImages();
+  }, []);
 
   return (
-    <div className="flex flex-col">
+    <main className="flex flex-col">
       <div className="flex justify-center my-2">
         <h2 className="text-4xl tracking-widest align-middle font-semibold">
-          Notes
+          Recently Deleted Images
         </h2>
         <Button
           variant={"lArrowCircle"}
@@ -63,23 +64,25 @@ const Notes = () => {
       {/* Check if modal is open and render modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50">
-          <NewNoteModal topicId={topicId} closeModal={toggleModal} />
+          <NewImageModal topicId={topicId} closeModal={toggleModal} />
         </div>
       )}
 
-      <div className="flex flex-col w-full gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid md:grid-cols-3 lg:grid-cols-4 z-30">
-        {notes.map((notes) => (
-          <NoteCard
-            key={notes.id}
-            note_id={notes.id}
-            title={notes.title}
-            note={notes.content}
-            topicId={notes.topicId}
+      <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4 z-30">
+        {/* {!images.length && <p>Add your first image</p>} */}
+        {images.map((images) => (
+          <RecentlyDeletedImageCard
+            key={images.id}
+            image_id={images.id}
+            description={images.description || ""}
+            image_src={images.imageUrl}
+            image_alt={images.id}
+            topicId={images.topicId}
           />
         ))}
       </div>
-    </div>
+    </main>
   );
 };
 
-export default Notes;
+export default Images;

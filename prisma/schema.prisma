@@ -10,11 +10,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum  Importance {
+  LOW
+  MEDIUM
+  HIGH
+}
+
 model Topic {
   id                        String   @id @default(cuid())
   title                     String
   description               String?
   imageUrl                  String?
+  importance                Importance?
   notes                     Note[]
   links                     Link[]
   attachments               Attachment[]
