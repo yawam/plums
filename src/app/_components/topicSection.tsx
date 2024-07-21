@@ -97,7 +97,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
               //   key={link.id}
               //   className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
               // >
-              <div className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer">
+              <div key={link.id} className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer">
                 <Preview value={link.url} />
                 <p className="pt-2">{link.description}</p>
               </div>
@@ -115,7 +115,7 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
               //   key={attachment.id}
               //   className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
               // >
-              <div className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer">
+              <div key={attachment.id} className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer">
                 {attachment.description}
               </div>
               // </Link>
