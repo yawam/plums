@@ -4,7 +4,7 @@ import React from 'react'
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
-const page = ({ params }: {
+const AttachmentIDPage = ({ params }: {
     params: { attachmentId: string }
 }) => {
   const router = useRouter();
@@ -32,4 +32,4 @@ const page = ({ params }: {
   );
 }
 
-export default page
+export default AttachmentIDPage
