@@ -71,6 +71,7 @@ const Links = () => {
         {!links.length && <p>Create your first link</p>}
         {links.map((links) => (
           <LinkCard
+              key={links.id}
               link_id={links.id}
               url={links.url}
               description={links.description || ''}
