@@ -22,6 +22,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         plusCircle: "hover:bg-green-500 ",
         lArrowCircle: "hover:bg-green-500",
+        delete: "bg-red-600 text-white hover:bg-red-800 rounded-xl shadow-xl"
       },
       size: {
         default: "h-10 px-4 py-2",
