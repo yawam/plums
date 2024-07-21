@@ -128,7 +128,7 @@ const EditTopicModal = ({
   return (
     <>
       <div
-        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10"
         onClick={confirmCloseModal}
       >
         <div className=" bg-white rounded-xl max-w-md mx-auto p-6 shadow-2xl">
@@ -253,7 +253,7 @@ const EditTopicModal = ({
         </div>
       </div>
       {showConfirmation && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-10">
           <div className="bg-white rounded-lg p-6">
             <p className="mb-4">
               This will close the edit topic tab. Continue?
