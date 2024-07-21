@@ -46,14 +46,14 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
       </div>
 
       {topic?.subtopics && topic.subtopics.length > 0 && (
-        <div className="flex flex-col gap-2 mb-10 mt-2 px-4 w-full md:max-w-[80%] md:gap-12 mx-auto">
+        <div className="flex flex-col gap-2 mb-10 mt-[100px] px-4 w-full md:max-w-[80%] md:gap-12 mx-auto">
           <h3 className="text-2xl font-semibold mb-4">Related Topics</h3>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-2 justify-start">
             {topic.subtopics.map((subTopic) => (
               <Link 
                 key={subTopic.id}
                 href={`/${subTopic.id}`}
-                className="p-4 border rounded-md"
+                className="w-full md:w-2/5 lg:w-1/5 p-4 border rounded-md m-2 hover:bg-fuchsia-900 hover:text-white"
               >
                 <h4 className="text-xl font-semibold">{subTopic.title}</h4>
                 <p className="text-sm">{subTopic.description}</p>
