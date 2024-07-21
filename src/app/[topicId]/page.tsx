@@ -50,7 +50,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
           <h3 className="text-2xl font-semibold mb-4">Related Topics</h3>
           <div className="flex flex-wrap gap-2 justify-start">
             {topic.subtopics.map((subTopic) => (
-              <Link 
+              <Link
                 key={subTopic.id}
                 href={`/${subTopic.id}`}
                 className="w-full md:w-2/5 lg:w-1/5 p-4 border rounded-md m-2 hover:bg-fuchsia-900 hover:text-white"
@@ -62,7 +62,6 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

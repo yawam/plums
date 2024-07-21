@@ -45,6 +45,23 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
         >
           More...{" "}
         </Link>
+        {title === "Notes" && (
+          <Link
+            href="/recentlyDeletedNotes"
+            className="absolute bottom-2 right-2 underline px-2"
+          >
+            Recently Deleted Notes
+          </Link>
+        )}
+        {title === "Images" && (
+          <Link
+            href="/recentlyDeletedImages"
+            className="absolute bottom-2 right-2 underline px-2"
+          >
+            Recently Deleted Images
+          </Link>
+        )}
+
         {title === "Notes" &&
           (notes && notes.length > 0 ? (
             notes.slice(0, 2).map((note) => (
@@ -97,11 +114,14 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
               //   key={link.id}
               //   className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
               // >
-              <div key={link.id} className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer">
+              <div
+                key={link.id}
+                className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              >
                 <Preview value={link.url} />
                 <p className="pt-2">{link.description}</p>
               </div>
-                // </Link>
+              // </Link>
             ))
           ) : (
             <p className="mt-4 p-2 w-full text-center">Add your first link</p>
@@ -115,7 +135,10 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
               //   key={attachment.id}
               //   className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
               // >
-              <div key={attachment.id} className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer">
+              <div
+                key={attachment.id}
+                className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              >
                 {attachment.description}
               </div>
               // </Link>
