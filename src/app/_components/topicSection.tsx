@@ -92,14 +92,16 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
         {title === "Links" &&
           (links && links.length > 0 ? (
             links.slice(0, 2).map((link) => (
-              <Link
-                href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
-                key={link.id}
-                className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
-              >
+              // <Link
+              //   href={`/${topicId}/${title.toLowerCase()}/${link.id}`}
+              //   key={link.id}
+              //   className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              // >
+              <div>
                 <Preview value={link.url} />
                 <p className="pt-2">{link.description}</p>
-              </Link>
+              </div>
+                // </Link>
             ))
           ) : (
             <p className="mt-4 p-2 w-full text-center">Add your first link</p>
@@ -108,13 +110,15 @@ const TopicSection = async ({ title, topicId }: TopicSectionProps) => {
         {title === "Attachments" &&
           (attachments && attachments.length > 0 ? (
             attachments.slice(0, 2).map((attachment) => (
-              <Link
-                href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
-                key={attachment.id}
-                className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
-              >
-                {attachment.fileUrl}
-              </Link>
+              // <Link
+              //   href={`/${topicId}/${title.toLowerCase()}/${attachment.id}`}
+              //   key={attachment.id}
+              //   className="p-4 border-2 border-white hover:border-emerald-600 shadow-xl rounded-xl text-sm cursor-pointer"
+              // >
+              <div>
+                {attachment.description}
+              </div>
+              // </Link>
             ))
           ) : (
             <p className="mt-4 p-2 w-full text-center">
