@@ -1,9 +1,11 @@
 "use client";
 
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Preview } from "./preview";
 import { BsTrash } from "react-icons/bs";
 import Link from "next/link";
+import ConfirmDialog from "./confirmDialog";
 
 interface NoteCardProps {
   note_id: string;
@@ -13,20 +15,24 @@ interface NoteCardProps {
 }
 
 const NoteCard = ({ note_id, title, note, topicId }: NoteCardProps) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const handleDelete = async () => {
-    const noteId = note_id;
-    const insertDeletedNote = await fetch(
-      `/api/notes/noteId?noteId=${noteId}`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          id: note_id,
-          title: title,
-          content: note,
-          topicId: topicId,
-        }),
-      }
-    );
+    setDialogOpen(false);
+    try {
+      const noteId = note_id;
+      const insertDeletedNote = await fetch(
+        `/api/notes/noteId?noteId=${noteId}`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            id: note_id,
+            title: title,
+            content: note,
+            topicId: topicId,
+          }),
+        }
+      );
     // DO SOMETHING If DATA RETURNS.. CONTINUE WITH DELETE
     const insertedNote = await insertDeletedNote.json();
     if (insertedNote) {
@@ -41,6 +47,9 @@ const NoteCard = ({ note_id, title, note, topicId }: NoteCardProps) => {
         toast.error("Error deleting note");
       }
     }
+    } catch (error) {
+      toast.error("An error occurred while deleting the note");
+    }
   };
 
   return (
@@ -51,7 +60,7 @@ const NoteCard = ({ note_id, title, note, topicId }: NoteCardProps) => {
       <div className="absolute top-2 right-2 cursor-pointer transition hover:bg-black hover:bg-opacity-50 p-2 shadow-xl rounded-xl z-20">
         <BsTrash
           size={25}
-          onClick={handleDelete} // a delete by note id. remember to add to recently deleted for all delete functions
+          onClick={() => setDialogOpen(true)} // a delete by note id. remember to add to recently deleted for all delete functions
         />
       </div>
       <Link href={`/${topicId}/notes/${note_id}`}>
@@ -60,6 +69,14 @@ const NoteCard = ({ note_id, title, note, topicId }: NoteCardProps) => {
           <Preview value={note} />
         </div>
       </Link>
+      
+      <ConfirmDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onConfirm={handleDelete}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this note?"
+      />
     </div>
   );
 };

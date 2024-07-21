@@ -1,5 +1,12 @@
 "use client";
 
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { Preview } from "./preview";
+import { BsTrash } from "react-icons/bs";
+import Link from "next/link";
+import ConfirmDialog from "./confirmDialog";
+
 interface AttachmentCardProps {
   attachment_id: string;
   fileUrl: string;
@@ -7,6 +14,21 @@ interface AttachmentCardProps {
 }
 
 const AttachmentCard = ({ attachment_id, fileUrl, description }: AttachmentCardProps) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDelete = async () => {
+    setDialogOpen(false);
+    const attachmentId = attachment_id;
+    const response = await fetch(`/api/attachments/${attachmentId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      toast.success("Attachment Deleted");
+      window.location.reload();
+    } else {
+      toast.error("Error deleting attachment");
+    }
+  }
   // Function to determine the file type based on the file extension
   const getFileType = (url: string) => {
     const extension = url.split('.').pop()?.toLowerCase();
@@ -71,14 +93,28 @@ const AttachmentCard = ({ attachment_id, fileUrl, description }: AttachmentCardP
 
   return (
     <div
-      className="rounded-2xl bg-fuchsia-900 text-white h-[250px] shadow-xl p-4 cursor-pointer"
-      onClick={handleClick}
+      className="rounded-2xl bg-fuchsia-900 text-white h-[250px] shadow-xl p-4 relative z-20"
     >
+      <div className="absolute top-2 right-2 cursor-pointer transition hover:bg-black hover:bg-opacity-50 p-2 shadow-xl rounded-xl z-20">
+        <BsTrash
+          size={25}
+          onClick={() => setDialogOpen(true)} // a delete by note id. remember to add to recently deleted for all delete functions
+        />
+      </div>
       <div className="flex-1">
         {/* {renderFilePreview()} */}
       </div>
-      <h3 className="text-lg font-bold mt-2">{description}</h3>
+      <h3 className="text-lg font-bold mt-2" >{description}</h3>
+      <p className="cursor-pointer" onClick={handleClick}>Open attachment</p>
       {/* <p className="text-sm truncate">{fileUrl}</p> */}
+
+      <ConfirmDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onConfirm={handleDelete}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this note?"
+      />
     </div>
   );
 };
