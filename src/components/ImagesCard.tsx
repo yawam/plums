@@ -1,8 +1,10 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
+import ConfirmDialog from "./confirmDialog";
 
 interface ImageCardProps {
   image_id: string;
@@ -19,7 +21,11 @@ const ImageCard = ({
   image_alt,
   topicId,
 }: ImageCardProps) => {
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const handleDelete = async () => {
+    setDialogOpen(false);
     const imageId = image_id;
 
     const insertDeletedImage = await fetch(`/api/recentlyDeletedImages`, {
@@ -57,12 +63,20 @@ const ImageCard = ({
       <div className="absolute top-2 right-2 cursor-pointer transition hover:bg-black hover:bg-opacity-50 p-2 shadow-xl rounded-xl z-20">
         <BsTrash
           size={25}
-          onClick={handleDelete} // a delete by note id. remember to add to recently deleted for all delete functions
+          onClick={() => setDialogOpen(true)} // a delete by note id. remember to add to recently deleted for all delete functions
         />
       </div>
 
       <h3>{description}</h3>
       <Image src={image_src} alt={image_alt} width={150} height={150} />
+
+      <ConfirmDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onConfirm={handleDelete}
+        title="Confirm Delete"
+        message="Are you sure you want to delete this note?"
+      />
     </div>
   );
 };
