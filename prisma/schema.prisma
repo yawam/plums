@@ -22,6 +22,9 @@ model Topic {
   description               String?
   imageUrl                  String?
   importance                Importance?
+  parentId                  String?  // Add this field for the self-referential relation
+  parent                    Topic?   @relation("TopicToSubtopics", fields: [parentId], references: [id])
+  subtopics                 Topic[]  @relation("TopicToSubtopics")
   notes                     Note[]
   links                     Link[]
   attachments               Attachment[]
