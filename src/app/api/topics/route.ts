@@ -16,6 +16,7 @@ export async function POST(req: Request) {
           description: topicData.description,
           imageUrl: topicData.imageUrl,
           importance: topicData.importance,
+          parentId: topicData.parentId,
         },
       });
     } catch (error) {
