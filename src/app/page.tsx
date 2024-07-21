@@ -7,14 +7,32 @@ import NewTopicModal from "@/pages/NewTopicModal";
 import "remixicon/fonts/remixicon.css";
 import TopicCard from "@/components/TopicCard";
 import { Topic } from "@prisma/client";
+import { FaPencil } from "react-icons/fa6";
+import { BsTrash } from "react-icons/bs";
+import EditTopicModal from "@/pages/EditTopicModal";
+import toast from "react-hot-toast";
+import OnDeleteModal from "@/pages/OnDeleteModal";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [topics, setTopics] = useState<Topic[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [currentTopic, setCurrentTopic] = useState<Topic | null>(null);
 
   // Function to toggle modal state
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const toggleEditModal = (topic?: Topic) => {
+    setCurrentTopic(topic || null);
+    setIsEditing(!isEditing);
+  };
+
+  const toggleDeleteModal = (topic?: Topic) => {
+    setCurrentTopic(topic || null);
+    setIsDeleting(!isDeleting);
   };
 
   useEffect(() => {
@@ -52,14 +70,48 @@ export default function Home() {
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-6">
         {/* {!topics.length && <p>No topics yet</p>} */}
         {topics.map((topic) => (
-          <Link key={topic.id} href={`/${topic.id}`}>
-            <TopicCard
-              key={topic.id}
-              title={topic.title}
-              description={topic.description || ""}
-              imageUrl={topic.imageUrl || "/images/placeholder-image.jpg"}
+          <div key={topic.id} className="relative">
+            <FaPencil
+              onClick={() => toggleEditModal(topic)}
+              size={35}
+              className=" text-white absolute bottom-2 left-2 cursor-pointer transition ease-linear p-2 hover:bg-black hover:bg-opacity-50 hover:shadow-xl rounded-xl"
             />
-          </Link>
+            <BsTrash
+              onClick={() => {
+                toggleDeleteModal(topic);
+              }}
+              size={35}
+              className="hover:text-white absolute bottom-2 right-2 cursor-pointer transition ease-linear p-2 hover:bg-black hover:bg-opacity-50 hover:shadow-xl rounded-xl"
+            />
+            {isEditing && (
+              <EditTopicModal
+                topicId={currentTopic?.id || ""}
+                topic_title={currentTopic?.title || ""}
+                topic_description={currentTopic?.description || ""}
+                topic_imageUrl={
+                  currentTopic?.imageUrl || "/images/placeholder-image.jpg"
+                }
+                importance={currentTopic?.importance || ""}
+                closeModal={toggleEditModal}
+              />
+            )}
+
+            {isDeleting && (
+              <OnDeleteModal
+                closeModal={toggleDeleteModal}
+                topicId={currentTopic?.id || ""}
+                topic_title={currentTopic?.title || ""}
+              />
+            )}
+            <Link href={`/${topic.id}`}>
+              <TopicCard
+                key={topic.id}
+                title={topic.title}
+                description={topic.description || ""}
+                imageUrl={topic.imageUrl || "/images/placeholder-image.jpg"}
+              />
+            </Link>
+          </div>
         ))}
       </div>
     </main>

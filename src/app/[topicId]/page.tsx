@@ -32,6 +32,12 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
         </Link>
       </div>
 
+      {topic?.description && (
+        <div className="w-full">
+          <p className="text-sm text-center">{topic?.description}</p>
+        </div>
+      )}
+
       <div className="flex flex-col gap-2 mb-10 mt-2 px-4 w-full md:max-w-[80%] md:gap-12 mx-auto">
         {titles.map((title) => (
           <TopicSection key={title} title={title} topicId={topic?.id} />

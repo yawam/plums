@@ -42,3 +42,39 @@ export async function GET() {
     console.error("Error handling GET request:", error);
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const editData = await req.json();
+    console.log(editData);
+
+    const editedData = await db.topic.update({
+      where: {
+        id: editData.topicId,
+      },
+      data: {
+        title: editData.title,
+        description: editData.description,
+        imageUrl: editData.imageUrl,
+        importance: editData.importance,
+      },
+    });
+
+    return NextResponse.json({ editedData });
+  } catch (error) {
+    console.error("Error handling topic PATCH request:", error);
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const deleteData = await req.json();
+    const deletedData = await db.topic.delete({
+      where: {
+        id: deleteData.topicId,
+      },
+    });
+
+    return NextResponse.json({ deletedData });
+  } catch (error) {}
+}

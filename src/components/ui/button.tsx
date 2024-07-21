@@ -9,6 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        yes: "bg-fuchsia-900 text-white hover:bg-fuchsia-800 rounded-xl shadow-xl",
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
@@ -28,7 +29,8 @@ const buttonVariants = cva(
         icon: "h-10 w-10",
         plusCircle:
           "h-[51px] w-[51px] rounded-full absolute right-[30px] lg:right-[80px]",
-        lArrowCircle: "h-[51px] w-[51px] rounded-full absolute left-[30px] lg:left-[80px]"
+        lArrowCircle:
+          "h-[51px] w-[51px] rounded-full absolute left-[30px] lg:left-[80px]",
       },
     },
     defaultVariants: {
