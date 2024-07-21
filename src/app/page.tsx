@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import NewTopicModal from "@/pages/NewTopicModal";
@@ -19,6 +19,9 @@ export default function Home() {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTopic, setCurrentTopic] = useState<Topic | null>(null);
+  const [currentImportance, setCurrentImportance] = useState<string | null>(
+    null
+  );
 
   // Function to toggle modal state
   const toggleModal = () => {
@@ -35,19 +38,53 @@ export default function Home() {
     setIsDeleting(!isDeleting);
   };
 
-  useEffect(() => {
-    async function fetchTopics() {
+  const fetchTopics = useCallback(async () => {
+    try {
+      const response = await fetch("/api/topics");
+      const data = await response.json();
+      setTopics(data.topics);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching topics:", error);
+    }
+  }, []);
+
+  const fetchTopicsByImportance = useCallback(
+    async (importance: string | null) => {
+      if (!importance) {
+        fetchTopics();
+        return;
+      }
+
       try {
-        const response = await fetch("/api/topics");
+        const response = await fetch(
+          `/api/topics/importance?importance=${importance}`
+        );
         const data = await response.json();
-        setTopics(data.topics);
-        console.log(data);
+        setTopics(data.byImportance);
       } catch (error) {
         console.error("Error fetching topics:", error);
       }
-    }
+    },
+    [fetchTopics]
+  );
+
+  useEffect(() => {
     fetchTopics();
-  }, []);
+  }, [fetchTopics]);
+
+  useEffect(() => {
+    if (currentImportance) {
+      fetchTopicsByImportance(currentImportance);
+    } else {
+      fetchTopics();
+    }
+  }, [currentImportance, fetchTopics, fetchTopicsByImportance]);
+
+  const handleReset = () => {
+    setCurrentImportance(null);
+    fetchTopics();
+  };
 
   return (
     <main className="flex flex-col">
@@ -61,6 +98,24 @@ export default function Home() {
           onClick={toggleModal}
         >
           <i className="ri-add-circle-fill text-fuchsia-900 text-[90px]" />
+        </Button>
+      </div>
+      <div className="flex justify-start mx-8 px-8 space-x-2">
+        <p className="self-end text-xl p-2">Tags/Labels:</p>
+        <Button variant="outline" onClick={() => setCurrentImportance("LOW")}>
+          LOW
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => setCurrentImportance("MEDIUM")}
+        >
+          MEDIUM
+        </Button>
+        <Button variant="outline" onClick={() => setCurrentImportance("HIGH")}>
+          HIGH
+        </Button>
+        <Button variant="outline" onClick={handleReset}>
+          ALL TOPICS
         </Button>
       </div>
 
