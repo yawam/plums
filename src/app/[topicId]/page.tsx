@@ -67,4 +67,6 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
   );
 };
 
+// This is added to pull changes in github
+
 export default TopicPage;
