@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import { NextResponse, NextRequest } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 enum Importance {
   LOW = "LOW",
   MEDIUM = "MEDIUM",
