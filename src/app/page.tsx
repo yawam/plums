@@ -100,31 +100,36 @@ export default function Home() {
           <i className="ri-add-circle-fill text-fuchsia-900 text-[90px]" />
         </Button>
       </div>
-      <div className="flex justify-start mx-8 px-8 space-x-2">
-        <p className="self-end text-xl p-2">Tags/Labels:</p>
-        <Button variant="outline" onClick={() => setCurrentImportance("LOW")}>
-          LOW
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => setCurrentImportance("MEDIUM")}
-        >
-          MEDIUM
-        </Button>
-        <Button variant="outline" onClick={() => setCurrentImportance("HIGH")}>
-          HIGH
-        </Button>
-        <Button variant="outline" onClick={handleReset}>
-          ALL TOPICS
-        </Button>
+      <div className="flex md:flex-row flex-col justify-center md:justify-start md:mx-8 md:px-8 space-x-2">
+        <p className="md:self-end text-xl p-2">Tags/Labels:</p>
+        <div className="flex space-x-2">
+          <Button variant="outline" onClick={() => setCurrentImportance("LOW")}>
+            LOW
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setCurrentImportance("MEDIUM")}
+          >
+            MEDIUM
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setCurrentImportance("HIGH")}
+          >
+            HIGH
+          </Button>
+          <Button variant="outline" onClick={handleReset}>
+            ALL TOPICS
+          </Button>
+        </div>
       </div>
 
       {/* Check if modal is open and render modal */}
-      {isModalOpen && 
+      {isModalOpen && (
         <div className="fixed inset-0 z-50">
           <NewTopicModal closeModal={toggleModal} />
         </div>
-      }
+      )}
 
       <div className="grid grid-cols-2 gap-2 mt-10 text-left px-4 md:max-w-[80%] md:gap-12 mx-auto md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-6 z-30">
         {/* {!topics.length && <p>No topics yet</p>} */}
