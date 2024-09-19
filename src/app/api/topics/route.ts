@@ -77,5 +77,12 @@ export async function DELETE(req: Request) {
     });
 
     return NextResponse.json({ deletedData });
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error handling topic DELETE request:", error);
+
+    return NextResponse.json(
+      { message: "Failed to delete topic" },
+      { status: 500 }
+    );
+  }
 }

@@ -67,6 +67,9 @@ const OnDeleteModal = ({ closeModal, topicId, topic_title }: ModalProps) => {
         toast.success("Topic Deleted");
         closeModal();
         window.location.reload();
+      } else {
+        toast.error("Error deleting topic");
+        closeModal();
       }
     } catch (error) {}
   };
@@ -98,7 +101,7 @@ const OnDeleteModal = ({ closeModal, topicId, topic_title }: ModalProps) => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6">
             <p className="mb-4">
-              This will close the new topic creation. Continue?
+              This will close the new topic deletion menu. Continue?
             </p>
             <div className="flex justify-end">
               <button

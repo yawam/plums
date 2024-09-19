@@ -40,7 +40,7 @@ model Note {
   title       String
   content     String
   topicId     String
-  topic       Topic    @relation(fields: [topicId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -50,7 +50,7 @@ model Link {
   url         String
   description String?
   topicId     String
-  topic       Topic    @relation(fields: [topicId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -60,7 +60,7 @@ model Attachment {
   fileUrl     String
   description String?
   topicId     String
-  topic       Topic    @relation(fields: [topicId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -70,7 +70,7 @@ model Image {
   imageUrl    String
   description String?
   topicId     String
-  topic       Topic    @relation(fields: [topicId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -80,7 +80,7 @@ model Recently_Deleted_Note {
   title       String
   content     String
   topicId     String
-  topic       Topic    @relation(fields: [topicId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   deletedAt   DateTime @default(now())
 }
 
@@ -89,6 +89,6 @@ model Recently_Deleted_Image {
   imageUrl    String
   description String?
   topicId     String
-  topic       Topic    @relation(fields: [topicId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
   deletedAt   DateTime @default(now())
 }
